@@ -1,0 +1,81 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+h1 {
+    font-family: VT323;
+    text-align: center;
+    color: #0f0;
+    font-size: 90px;
+}
+
+.container {
+    font-family: JetBrains Mono;
+    align-self: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: auto;
+    gap: 20px;
+}
+
+.article {
+    background-color: rgb(27, 27, 27);
+    padding: 20px;
+    font-size: 15px;
+}
+
+.featured {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    background-color: rgb(27, 27, 27);
+    padding: 20px;
+    font-size: 25px;
+}
+
+.otherNews {
+    display:grid;
+}
+
+.scope {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+h2 {
+    text-align: center;
+}
+
+img {
+    width: 100%;
+}
+
+.article a:link {
+    text-decoration: none;
+    color: rgb(104, 114, 255);
+}
+.featured a:link {
+    text-decoration: none;
+    color: rgb(104, 114, 255);
+}
+
+.article a:hover {
+    text-decoration: underline;
+}
+.featured a:hover {
+    text-decoration: underline;
+}
+
+.article a:visited {
+    color: rgb(164, 169, 249);
+}
+.featured a:visited {
+    color: rgb(164, 169, 249);
+}
+
+footer {
+    grid-column: 1 / -1;
+    font-family: JetBrains Mono;
+    background-color: rgb(58, 58, 58);
+    padding: 10px;
+}
