@@ -35,6 +35,7 @@ h1 {
 
 .otherNews {
     display:grid;
+    gap: 20px;
 }
 
 .scope {
