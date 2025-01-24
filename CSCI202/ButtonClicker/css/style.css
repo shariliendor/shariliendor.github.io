@@ -1,0 +1,25 @@
+h1 {
+    color: black;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+#button {
+    background-color: red;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    box-shadow: black 5px 5px;
+    position: absolute;
+
+    top: 300px;
+    left: 300px;
+}
+
+#dude {
+    width: 300px;
+    display: none;
+}
