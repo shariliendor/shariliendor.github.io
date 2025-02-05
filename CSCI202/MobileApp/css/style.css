@@ -2,6 +2,10 @@ img {
     width: 100%;
 }
 
+#qr {
+    width: 200px;
+}
+
 input {
     display: none;
 }
