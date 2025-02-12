@@ -1,0 +1,181 @@
+[
+    {
+        "title": "Mammuthus Primigenius",
+        "imageUrl": "https://origami-art.us/images/Mammuthus_primigenius/Mammuthus-Satoshi_Kamiya.png",
+        "altText": "Origami Mammoth",
+        "designer": "Satoshi Kamiya",
+        "complexity": 4,
+        "diagramLink": "https://origami-art.us/instructions/249-origami-prehistoric-mammoth"
+    }, 
+
+    {
+        "title": "Horse",
+        "imageUrl": "https://origami-art.us/images/thumbnails/images/origami/animals/horse-hideo-komatsu/ava2-fit-268x179.jpg",
+        "altText": "Origami Horse",
+        "designer": "Hideo Komatsu",
+        "complexity": 4,
+        "diagramLink": "https://origami-art.us/instructions/209-horse-hideo-komatsu"
+    }, 
+
+    {
+        "title": "Rabbit",
+        "imageUrl": "https://origami-art.us/images/origami/animals/rabbits/Rabbit_by_Jun_Maekawa/Rabbit.png",
+        "altText": "Origami Rabbit",
+        "designer": "Jun Maekawa",
+        "complexity": 3,
+        "diagramLink": "https://origami-art.us/instructions/156-rabbit-maekawa"
+    }, 
+
+    {
+        "title": "Pegasus",
+        "imageUrl": "https://origami-art.us/images/origami/animals/pegasus/pegasus1.jpg",
+        "altText": "Origami Pegasus",
+        "designer": "Aníbal Voyer",
+        "complexity": 4,
+        "diagramLink": "https://origami-art.us/instructions/110-pegasus-origami"
+    }, 
+
+    {
+        "title": "Heart Rings",
+        "imageUrl": "https://origami-art.us/images/origami/Heart_rings/heart.png",
+        "altText": "Origami Heart Rings",
+        "designer": "Jeremy Schafer",
+        "complexity": 2,
+        "diagramLink": "https://origami-art.us/instructions/251-heart-rings"
+    }, 
+
+    {
+        "title": "Tarantula",
+        "imageUrl": "https://origami-art.us/images/origami/animals/tarantula-lang/tarantul.jpg",
+        "altText": "Origami Tarantula",
+        "designer": "Robert J. Lang",
+        "complexity": 5,
+        "diagramLink": "https://origami-art.us/instructions/180-tarantula-by-robert-lang"
+    }, 
+
+    {
+        "title": "Ladybug in Flight",
+        "imageUrl": "https://origami-art.us/images/origami/insects/Ladybug_in_flight/ladybug_in_flight.jpg",
+        "altText": "Origami Ladybug",
+        "designer": "Robert J. Lang",
+        "complexity": 5,
+        "diagramLink": "https://origami-art.us/instructions/126-ladybug-in-flight"
+    }, 
+
+    {
+        "title": "Versallies Box",
+        "imageUrl": "https://origami-art.us/images/origami/boxes/box-rose/Origami-Box-Rose.jpg",
+        "altText": "Origami Rose Box",
+        "designer": "Krystyna Burczyk",
+        "complexity": 3,
+        "diagramLink": "https://www.youtube.com/watch?v=tWR7aceWh1A&ab_channel=TadashiMori-OrigamiTutorials"
+    }, 
+
+    {
+        "title": "5 Tetrahedrons",
+        "imageUrl": "https://origami-art.us/images/origami/modular/5-tetrahedron/tetrahedron-ava.jpg",
+        "altText": "Origami 5 Tetrahedrons",
+        "designer": "Tom Hull",
+        "complexity": 3,
+        "diagramLink": "https://origami-art.us/instructions/26-5-tetrahedrons"
+    }, 
+
+    {
+        "title": "Dzunako (Lily Box)",
+        "imageUrl": "https://origami-art.us/images/origami/different/dzunako/dzukako-ava.jpg",
+        "altText": "Origami Lily box",
+        "designer": "Traditional",
+        "complexity": 1,
+        "diagramLink": "https://origami-art.us/instructions/40-dzunako"
+    }, 
+
+    {
+        "title": "Goose",
+        "imageUrl": "https://jonakashima.com.br/wp-content/uploads/2022/02/2983clean.jpg",
+        "altText": "Origami Goose",
+        "designer": "Jo Nakashima",
+        "complexity": 3,
+        "diagramLink": "https://jonakashima.com.br/2022/02/15/origami-goose/"
+    }, 
+
+    {
+        "title": "Heart",
+        "imageUrl": "https://jonakashima.com.br/2023/02/10/easy-origami-heart/",
+        "altText": "Origami Heart",
+        "designer": "Jo Nakashima",
+        "complexity": 1,
+        "diagramLink": "https://jonakashima.com.br/wp-content/uploads/2023/02/capa3649.jpg"
+    }, 
+
+    {
+        "title": "Turkey",
+        "imageUrl": "https://jonakashima.com.br/wp-content/uploads/2021/11/capa-2626.jpg",
+        "altText": "Origami Turkey",
+        "designer": "Jo Nakashima",
+        "complexity": 2,
+        "diagramLink": "https://jonakashima.com.br/2021/11/26/origami-turkey/"
+    }, 
+
+    {
+        "title": "Ancient Dragon",
+        "imageUrl": "https://static.wikia.nocookie.net/origami/images/5/5a/Ancient_Dragon.jpg/revision/latest?cb=20180831020331",
+        "altText": "Origami Dncient Dragon",
+        "designer": "Satoshi Kamiya",
+        "complexity": 5,
+        "diagramLink": "https://www.youtube.com/watch?v=ByhcUSXzNVU&ab_channel=MarianoZavalaOrigami"
+    }, 
+
+    {
+        "title": "Witch",
+        "imageUrl": "https://origami-database.com/wp-content/uploads/DSC03643-export-scaled.jpg",
+        "altText": "Origami Witch",
+        "designer": "Aníbal Voyer",
+        "complexity": 5,
+        "diagramLink": "https://www.youtube.com/watch?v=1I2qx1Yx_H8&ab_channel=MarianoZavalaOrigami"
+    }, 
+
+    {
+        "title": "Cube: Heart",
+        "imageUrl": "https://origamiusa.org/system/files/thefold/thefold86_Cube_Hearts_Gupta.jpg",
+        "altText": "Origami Heart Cube",
+        "designer": "Madhura Gupta",
+        "complexity": 2,
+        "diagramLink": "https://origamiusa.org/system/files/thefold/thefold86_Cube_Hearts_Gupta.jpg"
+    }, 
+
+    {
+        "title": "Laus (Modular Mandala)",
+        "imageUrl": "https://origamiusa.org/system/files/thefold/thefold85_laus_green.jpg",
+        "altText": "Origami Modular Mandala",
+        "designer": "Matthew Green",
+        "complexity": 2,
+        "diagramLink": "https://origamiusa.org/system/files/thefold/thefold85_Laus_Green.pdf"
+    }, 
+
+    {
+        "title": "Box Turtle",
+        "imageUrl": "https://origamiusa.org/system/files/thefold/thefold83_Box_Turtle_Schneider.jpg",
+        "altText": "Origami Box Turtle",
+        "designer": "Jason Schneider",
+        "complexity": 2,
+        "diagramLink": "https://origamiusa.org/system/files/thefold/thefold83_Box_Turtle_Schneider.pdf"
+    }, 
+
+    {
+        "title": "Crane",
+        "imageUrl": "https://origami.me/wp-content/uploads/2017/04/crane.jpeg",
+        "altText": "Origami Crane",
+        "designer": "Traditional",
+        "complexity": 1,
+        "diagramLink": "https://origami.me/crane/"
+    }, 
+
+    {
+        "title": "Pheonix",
+        "imageUrl": "https://origami-art.us/images/origami/birds/phoenix-kamiya-satoshi/ph.jpg",
+        "altText": "Origami Pheonix",
+        "designer": "Satoshi Kamiya",
+        "complexity": 5,
+        "diagramLink": "https://origami-art.us/instructions/179-phoenix-kamiya-satoshi"
+    }
+]
