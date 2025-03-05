@@ -5,7 +5,6 @@ let clickRegistered = false;
 
 let currDialogue;
 let dialogueIndex = -1;
-let dialogueActive = false;
 
 let buttonX = 300;
 let buttonY = 300;
@@ -13,6 +12,8 @@ let buttonXSpeed = 1;
 let buttonYSpeed = 1;
 
 let buttonMoveInterval;
+
+let activeElements = [];
 
 function start() {
     document.addEventListener("mousebottondown", setClick);
@@ -27,6 +28,8 @@ function start() {
     playDialogue(sample);
 
     setButtonMovement(moveButtonSidetoSide);
+
+    changeBgColor();
 }
 
 /* 
@@ -47,6 +50,34 @@ Button cage?
 set button color sort of like hp?
     -button gets darker when clicked, darkest at end
 */
+
+function changeBgColor() {
+    activeElements.push("form");
+
+    formWrapper = document.getElementById("formWrapper");
+    formWrapper.innerHTML = `
+            <label for="colorPicker">Choose a backgroud color for your website:</label>
+            <input type="color" id="colorPicker">
+            <button id="formSubmit">Confirm</button>`;
+
+    let colorPicker = document.getElementById("colorPicker");
+    colorPicker.addEventListener("input", setBgColor);
+
+    let submitButton = document.getElementById("formSubmit");
+    submitButton.addEventListener("click", removeForm);
+}
+
+function setBgColor(event) {
+    let body = document.getElementById("body");
+    body.style.backgroundColor = event.target.value;
+}
+
+function removeForm() {
+    activeElements.pop();
+
+    formWrapper = document.getElementById("formWrapper");
+    formWrapper.innerHTML = "";
+}
 
 function setButtonMovement(newMove) {
     clearButtonMovement();
@@ -109,12 +140,12 @@ function clearDudePortrait() {
 
 function playDialogue(dialogue) {
     setCurrDialogue(dialogue);
-    dialogueActive = true;
+    activeElements.push("dialogue");
     advanceDialogue();
 }
 
 function advanceDialogue() {
-    if (!dialogueActive) {
+    if (!(activeElements[activeElements.length - 1] == "dialogue")) {
         return;
     }
 
@@ -131,7 +162,7 @@ function advanceDialogue() {
     displayText(dString, "DialogueBox");
 
     if (dialogueIndex >= currDialogue.length - 1) {
-        dialogueActive = false;
+        activeElements.pop();
     }
 }
 
