@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", start);
 
-let clicking = false;
-let clickRegistered = false;
-
 let currDialogue;
 let dialogueIndex = -1;
 
@@ -11,7 +8,10 @@ let buttonY = 300;
 let buttonXSpeed = 1;
 let buttonYSpeed = 1;
 
-let buttonClicks = 0;
+let ignoreNextClick = false;
+
+let clickCount = 0;
+let waitingForClick = false;
 let clickTimerStart = 0;
 let clickTimer = 0;
 let clicksNeeded = 0;
@@ -20,21 +20,49 @@ let buttonMoveFunction;
 let buttonMoveInterval;
 let timerInterval;
 
-let activeElements = [];
+const dialogues = {
+    "startGame1": [
+        "LARRY: So I heard there was this button thing",
+        "YOU: A button thing...",
+        "LARRY: Yeah, Jamal said it did something cool",
+        "YOU: Hmm, what?",
+        "LARRY: I don't know, he wouldn't tell me",
+        "YOU: That's weird"
+    ],
+
+    "startGame2": [
+        "LARRY: Is that...",
+        "YOU: Could be...",
+        "LARRY: Push it!"
+    ],
+
+    "startGame3": [
+        "???: STOP!",
+        "YOU: Huh?",
+        "???: Step away from that button! I'm with the BPA!",
+        "YOU: The what?",
+        "LARRY: BPA? Isn't that the stuff in water bottles?",
+        "???: What? No, Button Protection Agency"
+    ]
+};
 
 let buttonMoveFunctions = {
     "DVDLogo": moveButtonDVDLogo,
-    "SidetoSide": moveButtonSidetoSide
-}
+    "SidetoSide": moveButtonSidetoSide,
+    "StayStill": moveButtonStayStill
+};
+
+let queueIndex = -1;
 
 let eventQueue = [
-    "playButtonClicking DVDLogo 10 1000"
-]
+    "playDialogue startGame1",
+    "setVisible button 1",
+    "playDialogue startGame2",
+    "waitForClick",
+    "playDialogue startGame3"
+];
 
 function start() {
-    document.addEventListener("mousebottondown", setClick);
-    document.addEventListener("mousebuttonup", clearClick);
-
     let button = document.getElementById("button");
     button.addEventListener("mousedown", removeShadow);
     button.addEventListener("mouseleave", addShadow);
@@ -42,59 +70,98 @@ function start() {
     button.addEventListener("click", clickButton);
 
     document.addEventListener("click", advanceDialogue);
-
-    runEventQueue();
+    
+    advanceEventQueue();
 }
 
 /* 
 TODO:
 
 MUST
-gameplay flow (dialogue to gameplay to site mod, etc)
-maybe an event queue
-
 Allow  more site modifying changes (background, title, text, image, etc)
-add more button movement functions, maybe they just modify button speed?
+    - decide what the final product is
+    - add the rest of final product-modifying methods
+    - put dialogue in json file
+
+Add more button movement functions
+    - maybe they just modify button speed?
+    - button could move when clicked
+
 set position of dialogue box
 
 
 POTENTIALLY
-separate into different files
 Button cage?
 set button color sort of like hp?
     -button gets darker when clicked, darkest at end
 */
 
-function runEventQueue() {
-    let funName;
-    let words;
+function advanceEventQueue() {
+    if (queueIndex >= eventQueue.length) {
+        return;
+    }
+    
+    queueIndex++;
+    
+    let words = eventQueue[queueIndex].split(" ");
+    let funName = words[0];
 
-    for (i = 0; i < eventQueue.length; i++) {
-        words = eventQueue[i].split(" ");
-        funName = words[0];
+    switch (funName) {
+        case "playButtonClicking":
+            let moveType = buttonMoveFunctions[words[1]];
+            let clicksToPass = Number(words[2]);
+            let timeAllowed = Number(words[3]);
+            playButtonClicking(moveType, clicksToPass, timeAllowed);
+            return;
         
-        switch (funName) {
-            case "playButtonClicking":
-                let moveType = buttonMoveFunctions[words[1]];
-                let clicksToPass = Number(words[2]);
-                let timeAllowed = Number(words[3]);
-                playButtonClicking(moveType, clicksToPass, timeAllowed);
-                break;
-        }
+        case "waitForClick":
+            waitingForClick = true;
+            return;
+        
+        case "playDialogue":
+            let d = dialogues[words[1]];
+            playDialogue(d);
+            return;
+        
+        case "changeBgColor":
+            changeBgColor();
+            return;
+        
+        case "setDudePortrait":
+            let dudePortait = words[1];
+            setDudePotrait(dudePortait);
+            return;
+
+        case "clearDudePortrait":
+            clearDudePortrait();
+            return;
+
+        case "setVisible":
+            let elementID = words[1];
+            let vis = Number(words[2]);
+            setVisible(elementID, vis);
+            advanceEventQueue();
+            return;
     }
 }
 
-function playButtonClicking(buttonMoveFunction, clicksToPass, time) {
-    activeElements.push("button");
-    displayText("starting button move", "text");
+// function getDialogue(d) {
+//     fetch('json/dialogues.json')
+//         .then(response => response.json())
+//         .then(data => {
+//             return data[d];
+//         })
+//         .catch(error => console.error('Error loading data:', error)); 
+// }
 
+function playButtonClicking(buttonMoveFunction, clicksToPass, time) {
     setButtonMovement(buttonMoveFunction);
     clickCount = 0;
     clickTimerStart = time;
     clickTimer = time;
     clicksNeeded = clicksToPass;
     timerInterval = setInterval(decrementTimer, 1);
-
+    
     // reset button position
     buttonX = 300;
     buttonY = 300;
@@ -102,34 +169,33 @@ function playButtonClicking(buttonMoveFunction, clicksToPass, time) {
 }
 
 function decrementTimer() {
-    if (!(activeElements[activeElements.length - 1] == "button")) {
-        return;
-    }
-
     clickTimer --;
-    updateScoreDisplay();
+    updateScoreDisplay();    
 
     if(clickTimer <= 0) {
         clickTimer = 0;
         clearInterval(timerInterval);
         clearInterval(buttonMoveInterval);
-        activeElements.pop();
 
         if (clickCount < clicksNeeded) {
             // replay
-            displayText("calling", "text");
             playButtonClicking(buttonMoveFunction, clicksNeeded, clickTimerStart);
         }
 
         // done, move on
+
+        advanceEventQueue();
     }
 }
 
 function clickButton() {
-    if (!(activeElements[activeElements.length - 1] == "button")) {
-        return;
-    }
     clickCount ++;
+    
+    if (waitingForClick) {
+        waitingForClick = false;
+        ignoreNextClick = true;
+        advanceEventQueue();
+    }
 }
 
 function updateScoreDisplay() {
@@ -137,8 +203,6 @@ function updateScoreDisplay() {
 }
 
 function changeBgColor() {
-    activeElements.push("form");
-
     formWrapper = document.getElementById("formWrapper");
     formWrapper.innerHTML = `
             <label for="colorPicker">Choose a backgroud color for your website:</label>
@@ -158,10 +222,12 @@ function setBgColor(event) {
 }
 
 function removeForm() {
-    activeElements.pop();
-
     formWrapper = document.getElementById("formWrapper");
     formWrapper.innerHTML = "";
+
+    // done, move on
+    ignoreNextClick = true;
+    advanceEventQueue();
 }
 
 function setButtonMovement(newMove) {
@@ -173,6 +239,8 @@ function setButtonMovement(newMove) {
 function clearButtonMovement() {
     clearInterval(buttonMoveInterval);
 }
+
+function moveButtonStayStill(){}
 
 function moveButtonDVDLogo() {
     buttonX += buttonXSpeed;
@@ -218,20 +286,28 @@ function setDudePotrait(fileName) {
     let dudePortrait = document.getElementById("dudePortrait");
     dudePortrait.src = fileName;
     setVisible("dudePortrait", true);
+
+    advanceEventQueue();
 }
 
 function clearDudePortrait() {
     setVisible("dudePortrait", false);
+
+    advanceEventQueue();
 }
 
 function playDialogue(dialogue) {
     setCurrDialogue(dialogue);
-    activeElements.push("dialogue");
     advanceDialogue();
 }
 
 function advanceDialogue() {
-    if (!(activeElements[activeElements.length - 1] == "dialogue")) {
+    if (dialogueIndex + 1 >= currDialogue.length) {
+        return;
+    }
+
+    if (ignoreNextClick) {
+        ignoreNextClick = false;
         return;
     }
 
@@ -248,10 +324,10 @@ function advanceDialogue() {
     displayText(dString, "DialogueBox");
 
     if (dialogueIndex >= currDialogue.length - 1) {
-        activeElements.pop();
+        // done, move on
+        advanceEventQueue();
     }
 }
-
 
 
 function setCurrDialogue(dialogue) {
@@ -271,19 +347,3 @@ function setVisible(elementID, visible) {
         element.style.display = "none";
     }
 }
-
-function setClick() {
-    clicking = true;
-    clickRegistered = false;
-}
-
-function clearClick() {
-    clicking = false;
-}
-
-sample = [
-    "BOB: Hello!",
-    "LARRY: Hey Bob!",
-    "LARRY: How's it going?",
-    "BOB: Great, you?"
-]

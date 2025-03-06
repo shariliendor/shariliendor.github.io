@@ -1,0 +1,25 @@
+{
+    "startGame1": [
+        "LARRY: So I heard there was this button thing",
+        "YOU: A button thing...",
+        "LARRY: Yeah, Jamal said it did something cool",
+        "YOU: Hmm, what?",
+        "LARRY: I don't know, he wouldn't tell me",
+        "YOU: That's weird"
+    ],
+
+    "startGame2": [
+        "LARRY: Is that...",
+        "YOU: Could be...",
+        "LARRY: Push it!"
+    ],
+
+    "startGame3": [
+        "???: STOP!",
+        "YOU: Huh?",
+        "???: Step away from that button! I'm with the BPA!",
+        "YOU: The what?",
+        "LARRY: BPA? Isn't that the stuff in water bottles?",
+        "???: What? No, Button Protection Agency"
+    ]
+}
