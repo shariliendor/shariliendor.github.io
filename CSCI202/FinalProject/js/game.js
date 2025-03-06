@@ -11,7 +11,14 @@ let buttonY = 300;
 let buttonXSpeed = 1;
 let buttonYSpeed = 1;
 
+let buttonClicks = 0;
+let clickTimerStart = 0;
+let clickTimer = 0;
+let clicksNeeded = 0;
+
+let buttonMoveFunction;
 let buttonMoveInterval;
+let timerInterval;
 
 let activeElements = [];
 
@@ -23,23 +30,22 @@ function start() {
     button.addEventListener("mousedown", removeShadow);
     button.addEventListener("mouseleave", addShadow);
     button.addEventListener("mouseup", addShadow);
+    button.addEventListener("click", clickButton);
 
     document.addEventListener("click", advanceDialogue);
+
+    playButtonClicking(moveButtonDVDLogo, 10, 1000);
+
     playDialogue(sample);
-
-    setButtonMovement(moveButtonSidetoSide);
-
-    changeBgColor();
 }
 
 /* 
 TODO:
 
 MUST
-Allow site modifying changes (background, title, text, image, etc)
 gameplay flow (dialogue to gameplay to site mod, etc)
-button click timer
 
+Allow  more site modifying changes (background, title, text, image, etc)
 add more button movement functions, maybe they just modify button speed?
 set position of dialogue box
 
@@ -50,6 +56,56 @@ Button cage?
 set button color sort of like hp?
     -button gets darker when clicked, darkest at end
 */
+
+function playButtonClicking(buttonMoveFunction, clicksToPass, time) {
+    activeElements.push("button");
+    displayText("starting button move", "text");
+
+    setButtonMovement(buttonMoveFunction);
+    clickCount = 0;
+    clickTimerStart = time;
+    clickTimer = time;
+    clicksNeeded = clicksToPass;
+    timerInterval = setInterval(decrementTimer, 1);
+
+    // reset button position
+    buttonX = 300;
+    buttonY = 300;
+    updateButtonPosition();
+}
+
+function decrementTimer() {
+    if (!(activeElements[activeElements.length - 1] == "button")) {
+        return;
+    }
+
+    clickTimer --;
+    updateScoreDisplay();
+
+    if(clickTimer <= 0) {
+        clickTimer = 0;
+        clearInterval(timerInterval);
+        clearInterval(buttonMoveInterval);
+        activeElements.pop();
+
+        if (clickCount < clicksNeeded) {
+            // replay
+            displayText("calling", "text");
+            playButtonClicking(buttonMoveFunction, clicksNeeded, clickTimerStart);
+        }
+    }
+}
+
+function clickButton() {
+    if (!(activeElements[activeElements.length - 1] == "button")) {
+        return;
+    }
+    clickCount ++;
+}
+
+function updateScoreDisplay() {
+    displayText("Time Left: " + clickTimer + " Clicks: " + clickCount, "text");
+}
 
 function changeBgColor() {
     activeElements.push("form");
@@ -81,6 +137,7 @@ function removeForm() {
 
 function setButtonMovement(newMove) {
     clearButtonMovement();
+    buttonMoveFunction = newMove;
     buttonMoveInterval = setInterval(newMove);
 }
 
