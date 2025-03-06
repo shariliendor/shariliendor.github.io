@@ -22,6 +22,15 @@ let timerInterval;
 
 let activeElements = [];
 
+let buttonMoveFunctions = {
+    "DVDLogo": moveButtonDVDLogo,
+    "SidetoSide": moveButtonSidetoSide
+}
+
+let eventQueue = [
+    "playButtonClicking DVDLogo 10 1000"
+]
+
 function start() {
     document.addEventListener("mousebottondown", setClick);
     document.addEventListener("mousebuttonup", clearClick);
@@ -34,9 +43,7 @@ function start() {
 
     document.addEventListener("click", advanceDialogue);
 
-    playButtonClicking(moveButtonDVDLogo, 10, 1000);
-
-    playDialogue(sample);
+    runEventQueue();
 }
 
 /* 
@@ -44,6 +51,7 @@ TODO:
 
 MUST
 gameplay flow (dialogue to gameplay to site mod, etc)
+maybe an event queue
 
 Allow  more site modifying changes (background, title, text, image, etc)
 add more button movement functions, maybe they just modify button speed?
@@ -56,6 +64,25 @@ Button cage?
 set button color sort of like hp?
     -button gets darker when clicked, darkest at end
 */
+
+function runEventQueue() {
+    let funName;
+    let words;
+
+    for (i = 0; i < eventQueue.length; i++) {
+        words = eventQueue[i].split(" ");
+        funName = words[0];
+        
+        switch (funName) {
+            case "playButtonClicking":
+                let moveType = buttonMoveFunctions[words[1]];
+                let clicksToPass = Number(words[2]);
+                let timeAllowed = Number(words[3]);
+                playButtonClicking(moveType, clicksToPass, timeAllowed);
+                break;
+        }
+    }
+}
 
 function playButtonClicking(buttonMoveFunction, clicksToPass, time) {
     activeElements.push("button");
@@ -93,6 +120,8 @@ function decrementTimer() {
             displayText("calling", "text");
             playButtonClicking(buttonMoveFunction, clicksNeeded, clickTimerStart);
         }
+
+        // done, move on
     }
 }
 
