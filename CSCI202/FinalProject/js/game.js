@@ -20,6 +20,11 @@ let buttonMoveFunction;
 let buttonMoveInterval;
 let timerInterval;
 
+let playerName = "[player name]";
+let favoriteImage = "images/carlBPA.jpg";
+let favoriteColor;
+let totalButtonPushes = 0;
+
 const dialogues = {
     "startGame1": [
         "LARRY: So I heard there was this button thing",
@@ -41,8 +46,33 @@ const dialogues = {
         "YOU: Huh?",
         "???: Step away from that button! I'm with the BPA!",
         "YOU: The what?",
-        "LARRY: BPA? Isn't that the stuff in water bottles?",
-        "???: What? No, Button Protection Agency"
+        "LARRY: BPA? Isn't that the stuff in water bottles?"
+    ],
+
+    "startGame4": [
+        "CARL: No, the Button Protection Agency",
+        "YOU: Wait how is that actually a thing?",
+        "LARRY: And what are you protecting buttons from, being pushed?"
+    ],
+
+    "startGame5": [
+        "CARL: Exactly! Pushing a button is a sacriligeous act,",
+        "CARL: Going against the teachings of Nopushius, the Button Guardian",
+        "CARL: It's so terrible to be on the internet",
+        "CARL: So many buttons everywhere",
+        "LARRY: You do realize that buttons are meant to help you navigate...",
+        "CARL: No! They are the flock of Nopushius and must not be touched!",
+        "LARRY: Here, let me push the button again",
+        "LARRY: You'll see it's not so bad",
+        "LARRY: My friend Jamal pushed one earlier",
+        "YOU: Yeah, he said it did something cool!",
+        "CARL: NOOOO! I CAST DVD LOGO!!!"
+    ],
+
+    "1interlude1": [
+        "YOU: Wow, did you see that?",
+        "LARRY: Yeah, the whole background changed color!",
+        "LARRY: See Carl? Buttons are so much cooler when you push them!"
     ]
 };
 
@@ -59,7 +89,18 @@ let eventQueue = [
     "setVisible button 1",
     "playDialogue startGame2",
     "waitForClick",
-    "playDialogue startGame3"
+    "setDudePortrait images/carl.jpg",
+    "playDialogue startGame3",
+    "setDudePortrait images/carlBPA.jpg",
+    "playDialogue startGame4",
+    "setDudePortrait images/carl.jpg",
+    "playDialogue startGame5",
+
+    "playButtonClicking DVDLogo 10 1500",
+    "changeBgColor",
+    "playDialogue 1interlude1",
+
+    "displayFinalProduct"
 ];
 
 function start() {
@@ -69,8 +110,6 @@ function start() {
     button.addEventListener("mouseup", addShadow);
     button.addEventListener("click", clickButton);
 
-    document.addEventListener("click", advanceDialogue);
-    
     advanceEventQueue();
 }
 
@@ -79,9 +118,9 @@ TODO:
 
 MUST
 Allow  more site modifying changes (background, title, text, image, etc)
-    - decide what the final product is
     - add the rest of final product-modifying methods
-    - put dialogue in json file
+
+put dialogue in json file
 
 Add more button movement functions
     - maybe they just modify button speed?
@@ -130,10 +169,12 @@ function advanceEventQueue() {
         case "setDudePortrait":
             let dudePortait = words[1];
             setDudePotrait(dudePortait);
+            advanceEventQueue();
             return;
 
         case "clearDudePortrait":
             clearDudePortrait();
+            advanceEventQueue();
             return;
 
         case "setVisible":
@@ -142,7 +183,38 @@ function advanceEventQueue() {
             setVisible(elementID, vis);
             advanceEventQueue();
             return;
+        
+        case "displayFinalProduct":
+            displayFinalProduct();
+            return;
     }
+}
+
+function displayFinalProduct() {
+    let body = document.getElementById("body");
+    body.style.backgroundColor = favoriteColor;
+    
+
+    body.innerHTML = `
+        <img id="dudePortrait" src="" alt="">
+        <h2>Hello, ` + playerName + ` and Larry, pushers of buttons</h2>
+        <p>
+            I am Nopushius, Guardian of Buttons. <br>
+            In spite of the knowledge imparted to you by my faithful servants, <br>
+            you have succeeded in pushing
+        </p>
+        <h1>` + totalButtonPushes + ` BUTTONS!</h1>
+        <p>
+            Despite my great power, I cannot take this cursed image off the screen! <br>
+            Nor can I remove this vile background color you have set! <br>
+            Do you see what you've done? <br>
+            These crimes will not go unpunished!
+        </p>
+    `;
+
+    setDudePotrait(favoriteImage);
+    let dudePortrait = document.getElementById("dudePortrait");
+    dudePortrait.style.top = "300px";
 }
 
 // function getDialogue(d) {
@@ -180,16 +252,18 @@ function decrementTimer() {
         if (clickCount < clicksNeeded) {
             // replay
             playButtonClicking(buttonMoveFunction, clicksNeeded, clickTimerStart);
+            return;
         }
 
         // done, move on
-
+        setVisible("button", false);
         advanceEventQueue();
     }
 }
 
 function clickButton() {
     clickCount ++;
+    totalButtonPushes++;
     
     if (waitingForClick) {
         waitingForClick = false;
@@ -199,7 +273,7 @@ function clickButton() {
 }
 
 function updateScoreDisplay() {
-    displayText("Time Left: " + clickTimer + " Clicks: " + clickCount, "text");
+    displayText("Time Left: " + clickTimer + " Clicks: " + clickCount + "/" + clicksNeeded, "text");
 }
 
 function changeBgColor() {
@@ -219,6 +293,7 @@ function changeBgColor() {
 function setBgColor(event) {
     let body = document.getElementById("body");
     body.style.backgroundColor = event.target.value;
+    let favoriteColor = event.target.value;
 }
 
 function removeForm() {
@@ -286,23 +361,23 @@ function setDudePotrait(fileName) {
     let dudePortrait = document.getElementById("dudePortrait");
     dudePortrait.src = fileName;
     setVisible("dudePortrait", true);
-
-    advanceEventQueue();
 }
 
 function clearDudePortrait() {
     setVisible("dudePortrait", false);
-
-    advanceEventQueue();
 }
 
 function playDialogue(dialogue) {
     setCurrDialogue(dialogue);
+    document.addEventListener("click", advanceDialogue);
     advanceDialogue();
 }
 
 function advanceDialogue() {
-    if (dialogueIndex + 1 >= currDialogue.length) {
+    if (dialogueIndex + 1 >= currDialogue.length) { // +1 because if it were to advance
+        // done, move on
+        document.removeEventListener("click", advanceDialogue);
+        advanceEventQueue();
         return;
     }
 
@@ -322,11 +397,6 @@ function advanceDialogue() {
     dString += currDialogue[dialogueIndex]
     
     displayText(dString, "DialogueBox");
-
-    if (dialogueIndex >= currDialogue.length - 1) {
-        // done, move on
-        advanceEventQueue();
-    }
 }
 
 
