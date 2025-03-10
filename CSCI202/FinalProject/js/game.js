@@ -184,7 +184,7 @@ let eventQueue = [
     "setRandomizePos 1",
     "setShrinking 1",
     "playButtonClicking DVDLogo 10 3000",
-    // choose image
+    "getImage",
 
     // end of game
     "displayFinalProduct"
@@ -203,17 +203,16 @@ function start() {
 /* 
 TODO:
 
-MUST
-Allow  more site modifying changes (background, title, text, image, etc)
-    - add the rest of final product-modifying methods
+make image choosing
+add reset button (partially implemented already, just need to fix it)
+make button bounce like it should (not bouncing on thin air when it's small)
 
 put dialogue in json file
+AND REFACTOR BECAUSE HOLY SHIT THIS IS DISGUSTING
 
-Add more button movement functions
-    - maybe they just modify button speed?
-    - button could move when clicked
+Add more button movement functions?
+    make button move faster if there were another dude
 
-set position of dialogue box
 
 
 POTENTIALLY
@@ -256,6 +255,10 @@ function advanceEventQueue() {
         
         case "getUserName":
             getUserName();
+            return;
+        
+        case "getImage":
+            getImage();
             return;
         
         case "setDudePortrait":
@@ -444,6 +447,20 @@ function updateScoreDisplay() {
     displayText("Time Left: " + clickTimer + " Clicks: " + clickCount + "/" + clicksNeeded, "text");
 }
 
+function getImage() {
+    formWrapper = document.getElementById("formWrapper");
+    formWrapper.innerHTML = `
+            <label for="imageForm">Copy paste any image url here: </label>
+            <input type="text" id="imageForm">
+            <button id="formSubmit">Confirm</button>`;
+
+    let imageForm = document.getElementById("imageForm");
+    imageForm.addEventListener("change", setFavoriteImage);
+
+    let submitButton = document.getElementById("formSubmit");
+    submitButton.addEventListener("click", removeForm);
+}
+
 function getUserName() {
     formWrapper = document.getElementById("formWrapper");
     formWrapper.innerHTML = `
@@ -470,6 +487,10 @@ function changeBgColor() {
 
     let submitButton = document.getElementById("formSubmit");
     submitButton.addEventListener("click", removeForm);
+}
+
+function setFavoriteImage(event) {
+    favoriteImage = event.target.value;
 }
 
 function setUserName(event) {
