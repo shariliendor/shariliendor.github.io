@@ -1,0 +1,47 @@
+[
+    {
+        "title": "chess.com",
+        "url": "https://www.chess.com/home",
+        "description": "There's a lot going on in terms of the layout on this website."
+    },
+    {
+        "title": "Japanese Paper Palace",
+        "url": "https://www.japanesepaperplace.com/",
+        "description": "There are a lot of different styles used on this website, and a variety of different grids."
+    },
+    {
+        "title": "Justice Banson's Portfolio",
+        "url": "https://justicebanson.com/index.html",
+        "description": "This is a professor's personal portfolio website. He uses a lot of javascript transformations."
+    },
+    {
+        "title": "Steam Store",
+        "url": "https://store.steampowered.com/",
+        "description": "This site uses a lot of carousels, which I thought was cool."
+    },
+    {
+        "title": "Virtual Piano",
+        "url": "https://www.onlinepianist.com/virtual-piano",
+        "description": "This website is basically a piano, but you play it with your keyboard."
+    },
+    {
+        "title": "WolframAlpha Online Calculator",
+        "url": "https://www.wolframalpha.com/",
+        "description": "This website is an online calculator that shows the steps to solve math problems."
+    },
+    {
+        "title": "Kami",
+        "url": "https://web.kamihq.com/web/viewer.html?browser_action=true",
+        "description": "This is a chrome extension for pdf editing. It's a great example of working with user files."
+    },
+    {
+        "title": "Taming.io",
+        "url": "https://taming.io/",
+        "description": "A massively multiplayer online game (MMO), This website uses servers to allow user to interact with each other."
+    },
+    {
+        "title": "OrigamiArt.us",
+        "url": "https://origami-art.us/",
+        "description": "This is a collection of origami models that was part of my inspitation for the collection project."
+    }
+]

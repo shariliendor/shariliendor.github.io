@@ -1,0 +1,47 @@
+[
+    {
+        "title": "Hypertext Story",
+        "url": "/CSCI202/project1/index.html",
+        "description": "The first project of the quarter, this website was a sort of ice-breaker to introduce myself to the class."
+    },
+    {
+        "title": "Internet Broadsheet",
+        "url": "/CSCI202/internetBroadSheet/index.html",
+        "description": "Some articles about the internet, formatted like a news site."
+    },
+    {
+        "title": "Transformation Project",
+        "url": "/CSCI202/ButtonClicker/index.html",
+        "description": "A quirky little website showcasing transformation with javascript. It features a very interesting button."
+    },
+    {
+        "title": "Art Project",
+        "url": "/CSCI202/ArtProject/index.html",
+        "description": "I replicated Theo van Doesburg's Mouvement héroïque with p5.js, including an animation and an interactive version."
+    },
+    {
+        "title": "Unplugging",
+        "url": "/CSCI202/Unplugging/index.html",
+        "description": "A sort of blog about my experience unplugging from technology for a day."
+    },
+    {
+        "title": "Mobile Website",
+        "url": "/CSCI202/MobileApp/index.html",
+        "description": "A mobile website that takes the user on a scavenger hunt around the WWU campus."
+    },
+    {
+        "title": "Collection Curation",
+        "url": "/CSCI202/OrigamiCollection/index.html",
+        "description": "A collection of origami models with titles, designers, images, and linked diagrams, ranked by difficulty."
+    },
+    {
+        "title": "Modified ELIZA Chatbot",
+        "url": "/CSCI202/YodaChatBot/index.html",
+        "description": "I modified the original ELIZA chatbot from the 1960s to talk like Yoda from Star Wars."
+    },
+    {
+        "title": "Final Project: Button Clicker",
+        "url": "/CSCI202/FinalProject/index.html",
+        "description": "For my final project, I modified my button clicker project to turn it into a game with more of a storyline and more complex button clicking. Read more in my <a href='#'>proposal</a> or watch <a href='#'>this video</a> for a more in depth explanation."
+    }
+]
