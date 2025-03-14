@@ -1,9 +1,9 @@
 .card {
-    width: 100%;
-    min-width: 300px;
     padding: 5px;
+    height: 150px;
 }
 
-#container {
-    width: 50%;
+#wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }
